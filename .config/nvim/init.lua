@@ -305,7 +305,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 require("transparent").setup({
-	enable = true, -- boolean: enable transparent
 	extra_groups = { -- table/string: additional groups that should be cleared
 		-- In particular, when you set it to 'all', that means all available groups
 		-- "all",
@@ -317,8 +316,7 @@ require("transparent").setup({
 		"BufferLineSeparator",
 		"B:ufferLineIndicatorSelected",
 	},
-	exclude = {}, -- table: groups you don't want to clear
-	ignore_linked_group = true, -- boolean: don't clear a group that links to another group
+	exclude_groups = {}, -- table: groups you don't want to clear
 })
 
 -- Set lualine as statusline
@@ -351,6 +349,12 @@ require("gitsigns").setup({
 		delete = { text = "_" },
 		topdelete = { text = "‾" },
 		changedelete = { text = "~" },
+	},
+})
+
+require("cmp").setup({
+	sources = {
+		{ name = "path" },
 	},
 })
 
@@ -557,7 +561,6 @@ local on_attach = function(_, bufnr)
 		vim.lsp.buf.format()
 	end, { desc = "Format current buffer with LSP" })
 end
-
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
