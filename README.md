@@ -96,7 +96,7 @@ Important links
 
 ```bash
 sudo apt update && \
-sudo apt install i3 && \
+sudo apt install i3 light && \
 mkdir ~/.config/i3 && \
 mkdir ~/.config/i3status && \
 cp -r ./.config/i3 ~/.config/i3 && \
