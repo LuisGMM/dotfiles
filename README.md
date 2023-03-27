@@ -96,11 +96,11 @@ Important links
 
 ```bash
 sudo apt update && \
-sudp apt install i3 && \
+sudo apt install i3 && \
 mkdir ~/.config/i3 && \
 mkdir ~/.config/i3status && \
-cp ./.config/i3 ~/.config/i3 && \
-cp ./.config/i3status ~/.config/i3status
+cp -r ./.config/i3 ~/.config/i3 && \
+cp -r ./.config/i3status ~/.config/i3status
 ```
 
 Then you can log out and, at the time to login, click on the settings wheel and select i3
