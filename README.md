@@ -66,6 +66,10 @@ When done, inside neovim, open Mason package manager with `:Mason` and install t
 - stylua
 - selene
 
+Then you can run in the neovim's command line tool:
+`:PackerSync`
+`:TransparentEnable`
+
 Important links:
 
 - [Third party plugins](https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/pylsp/README.md)
