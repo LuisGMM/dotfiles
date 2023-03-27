@@ -204,9 +204,9 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
 
-        status_command exec ~/.config/i3status/mybar.sh
-        # status_command i3status
-        # tray_output primary
+        # status_command exec ~/.config/i3status/mybar.sh
+        status_command i3status
+        tray_output primary
 }
 
 # ------------------------------------------
