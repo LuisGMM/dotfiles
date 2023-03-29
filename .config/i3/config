@@ -203,8 +203,6 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-
-        # status_command exec ~/.config/i3status/mybar.sh
         status_command i3status
         tray_output primary
 }
@@ -233,6 +231,13 @@ bindsym $mod+semicolon exec ~/.config/i3/scripts/alsa down Headphone
 bindsym $mod+comma exec ~/.config/i3/scripts/alsa up Headphone
 bindsym $mod+m move workspace to output left
 
+# To see the name of a key run xev in a terminal, type the key and check the output.
+# See also: http://xahlee.info/linux/linux_show_keycode_keysym.html
 # Suspend
-bindsym $mod+Shift+period exec systemctl suspend
+bindsym $mod+Shift+comma exec systemctl suspend
 
+# Restart
+bindsym $mod+Shift+period exec shutdown -r now
+
+# Shutdown
+bindsym $mod+Shift+slash exec shutdown now
