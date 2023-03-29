@@ -241,3 +241,23 @@ bindsym $mod+Shift+period exec shutdown -r now
 
 # Shutdown
 bindsym $mod+Shift+slash exec shutdown now
+
+
+# See for startup apps:
+# https://unix.stackexchange.com/questions/96798/i3wm-start-applications-on-specific-workspaces-when-i3-starts
+# https://stackoverflow.com/questions/65049414/in-i3wm-how-can-i-open-programs-on-another-workspace-at-startup
+#
+# To check what string to assign run 'xprop | grep <guess-name'
+# And click in the app.
+# Alternatively, just run 'xprop', click on the app and look for the line with
+# WM_CLASS
+# i.e. WM_CLASS(STRING) = "gnome-terminal-server", "Gnome-terminal"
+
+assign [class="google-chrome"] $ws3
+assign [class="notion-snap"] $ws4
+assign [class="google-chrome"] $ws5
+assign [class="code"] $ws6
+assign [class="github desktop"] $ws7
+assign [class="gnome-terminal-server"] $ws8
+assign [class="gnome-terminal-server"] $ws9
+
