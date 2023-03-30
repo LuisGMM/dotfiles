@@ -252,14 +252,14 @@ assign [class="notion-snap"] number 4
 # assign [class="google-chrome"] number 2
 assign [class="Code"] number 6
 assign [class="GitHub Desktop"] number 7
-assign [class="Gnome-terminal"] number 8
+# assign [class="Gnome-terminal"] number 8
 # assign [class="gnome-terminal-server"] number 2
 
 exec --no-startup-id i3-msg 'exec /usr/bin/google-chrome'
 exec --no-startup-id i3-msg 'exec /snap/bin/notion-snap'
 exec --no-startup-id i3-msg 'exec /snap/bin/code'
 exec --no-startup-id i3-msg 'exec /usr/bin/github-desktop'
-exec --no-startup-id i3-msg 'exec i3-sensible-terminal'
+# exec --no-startup-id i3-msg 'exec i3-sensible-terminal'
 
 # exec --no-startup-id i3-msg 'workspace 3; exec /usr/bin/google-chrome'
 # exec --no-startup-id i3-msg 'workspace 4; exec /snap/bin/notion-snap'
