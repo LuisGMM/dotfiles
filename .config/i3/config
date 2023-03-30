@@ -225,12 +225,6 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
-# Alsa audio controls.
-bindsym $mod+Shift+comma exec ~/.config/i3/scripts/alsa restore
-bindsym $mod+semicolon exec ~/.config/i3/scripts/alsa down Headphone
-bindsym $mod+comma exec ~/.config/i3/scripts/alsa up Headphone
-bindsym $mod+m move workspace to output left
-
 # To see the name of a key run xev in a terminal, type the key and check the output.
 # See also: http://xahlee.info/linux/linux_show_keycode_keysym.html
 # Suspend
@@ -253,11 +247,23 @@ bindsym $mod+Shift+slash exec shutdown now
 # WM_CLASS
 # i.e. WM_CLASS(STRING) = "gnome-terminal-server", "Gnome-terminal"
 
-assign [class="google-chrome"] $ws3
-assign [class="notion-snap"] $ws4
-assign [class="google-chrome"] $ws5
-assign [class="code"] $ws6
-assign [class="github desktop"] $ws7
-assign [class="gnome-terminal-server"] $ws8
-assign [class="gnome-terminal-server"] $ws9
+assign [class="Google-chrome"] number 3
+assign [class="notion-snap"] number 4
+# assign [class="google-chrome"] number 2
+assign [class="Code"] number 6
+assign [class="GitHub Desktop"] number 7
+assign [class="Gnome-terminal"] number 8
+# assign [class="gnome-terminal-server"] number 2
 
+exec --no-startup-id i3-msg 'exec /usr/bin/google-chrome'
+exec --no-startup-id i3-msg 'exec /snap/bin/notion-snap'
+exec --no-startup-id i3-msg 'exec /snap/bin/code'
+exec --no-startup-id i3-msg 'exec /usr/bin/github-desktop'
+exec --no-startup-id i3-msg 'exec i3-sensible-terminal'
+
+# exec --no-startup-id i3-msg 'workspace 3; exec /usr/bin/google-chrome'
+# exec --no-startup-id i3-msg 'workspace 4; exec /snap/bin/notion-snap'
+# exec --no-startup-id i3-msg 'workspace 6; exec /snap/bin/code'
+# exec --no-startup-id i3-msg 'workspace 7; exec /usr/bin/github-desktop'
+# exec --no-startup-id i3-msg 'workspace 8; exec i3-sensible-terminal'
+# exec --no-startup-id i3-msg 'workspace 9; exec i3-sensible-terminal'
