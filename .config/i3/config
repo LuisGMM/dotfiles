@@ -278,23 +278,23 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip
 # WM_CLASS
 # i.e. WM_CLASS(STRING) = "gnome-terminal-server", "Gnome-terminal"
 
-assign [class="Google-chrome"] number 3
-assign [class="notion-snap"] number 4
-# assign [class="google-chrome"] number 2
-assign [class="Code"] number 6
-assign [class="GitHub Desktop"] number 7
-# assign [class="Gnome-terminal"] number 8
-# assign [class="gnome-terminal-server"] number 2
+# assign [class="Google-chrome"] number 3
+# assign [class="notion-snap"] number 4
+# # assign [class="google-chrome"] number 2
+# assign [class="Code"] number 6
+# assign [class="GitHub Desktop"] number 7
+# # assign [class="Gnome-terminal"] number 8
+# # assign [class="gnome-terminal-server"] number 2
+#
+# exec --no-startup-id i3-msg 'exec /usr/bin/google-chrome'
+# exec --no-startup-id i3-msg 'exec /snap/bin/notion-snap'
+# exec --no-startup-id i3-msg 'exec /snap/bin/code'
+# exec --no-startup-id i3-msg 'exec /usr/bin/github-desktop'
+# # exec --no-startup-id i3-msg 'exec i3-sensible-terminal'
 
-exec --no-startup-id i3-msg 'exec /usr/bin/google-chrome'
-exec --no-startup-id i3-msg 'exec /snap/bin/notion-snap'
-exec --no-startup-id i3-msg 'exec /snap/bin/code'
-exec --no-startup-id i3-msg 'exec /usr/bin/github-desktop'
-# exec --no-startup-id i3-msg 'exec i3-sensible-terminal'
-
-# exec --no-startup-id i3-msg 'workspace 3; exec /usr/bin/google-chrome'
-# exec --no-startup-id i3-msg 'workspace 4; exec /snap/bin/notion-snap'
-# exec --no-startup-id i3-msg 'workspace 6; exec /snap/bin/code'
-# exec --no-startup-id i3-msg 'workspace 7; exec /usr/bin/github-desktop'
-# exec --no-startup-id i3-msg 'workspace 8; exec i3-sensible-terminal'
-# exec --no-startup-id i3-msg 'workspace 9; exec i3-sensible-terminal'
+exec --no-startup-id sh -c "i3-msg 'sleep 0.5; workspace 3; exec /usr/bin/google-chrome'"
+exec --no-startup-id sh -c "i3-msg 'sleep 1; workspace 4; exec /snap/bin/notion-snap'"
+exec --no-startup-id sh -c "i3-msg 'sleep 1.5; workspace 6; exec /snap/bin/code'"
+exec --no-startup-id sh -c "i3-msg 'sleep 2; workspace 7; exec /usr/bin/github-desktop'"
+exec --no-startup-id sh -c "i3-msg 'sleep 2.5; workspace 8; exec i3-sensible-terminal'"
+exec --no-startup-id sh -c "i3-msg 'sleep 3; workspace 9; exec i3-sensible-terminal'"
