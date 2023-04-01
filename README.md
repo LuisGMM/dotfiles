@@ -102,7 +102,8 @@ Important links
 
 ```bash
 sudo apt update && \
-sudo apt install i3 light -y && \
+sudo apt install i3 brightnessctl -y && \
+sudo usermod -aG video $USER && \
 cp -r ./.config/i3 ~/.config/i3 && \
 cp -r ./.config/i3status ~/.config/i3status
 ```
