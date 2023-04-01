@@ -218,15 +218,23 @@ bindsym $mod+Shift+n exec --no-startup-id ~/dotfiles/bin/resolution
 
 # FKeys
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+# check https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html
+# if they do not work (change the 1 by 0 in the following commands)
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
 
 #
 # # Sreen brightness controls
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 3%-
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q set 3%+
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # To see the name of a key run xev in a terminal, type the key and check the output.
 # See also: http://xahlee.info/linux/linux_show_keycode_keysym.html

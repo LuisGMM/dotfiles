@@ -100,9 +100,10 @@ Important links
 
 ## Install i3
 
+<!----> Deps for brightness and screenshots
 ```bash
 sudo apt update && \
-sudo apt install i3 brightnessctl -y && \
+sudo apt install i3 brightnessctl maim xclip copyq xdotool -y && \
 sudo usermod -aG video $USER && \
 cp -r ./.config/i3 ~/.config/i3 && \
 cp -r ./.config/i3status ~/.config/i3status
