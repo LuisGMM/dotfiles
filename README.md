@@ -70,6 +70,12 @@ Then you can run in the neovim's command line tool:
 `:PackerSync`
 `:TransparentEnable`
 
+
+More neovim dependencies
+```bash
+sudo apt install ripgrep fzf
+```
+
 Important links:
 
 - [Third party plugins](https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/pylsp/README.md)
