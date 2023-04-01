@@ -248,6 +248,26 @@ bindsym $mod+Shift+period exec shutdown -r now
 bindsym $mod+Shift+slash exec shutdown now
 
 
+# Check https://dev.to/dianjuar/i3wm-screenshot-shortcuts-3n7b
+##  Screenshots in files
+# Print window and save
+bindsym Print exec --no-startup-id maim --format=png "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-all.png"
+bindsym $mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-current.png"
+# Select portion and save
+bindsym Shift+Print exec --no-startup-id maim --format=png --select "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-selected.png"
+
+## Screenshots in clipboards
+# Print window and save to clipboard
+bindsym Ctrl+Print exec --no-startup-id maim --format=png | xclip -selection clipboard -t image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+# Select portion and save to clipboard
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip -selection clipboard -t image/png
+
+
+
+
+
+
 # See for startup apps:
 # https://unix.stackexchange.com/questions/96798/i3wm-start-applications-on-specific-workspaces-when-i3-starts
 # https://stackoverflow.com/questions/65049414/in-i3wm-how-can-i-open-programs-on-another-workspace-at-startup
