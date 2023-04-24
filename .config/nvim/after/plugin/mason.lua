@@ -96,6 +96,10 @@ local servers = {
 			},
 		},
 	},
+	markdownlint = {},
+	marksman = {},
+	selene = {},
+	stylua = {},
 }
 
 -- Setup neovim lua configuration
