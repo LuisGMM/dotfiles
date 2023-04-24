@@ -1,4 +1,5 @@
 
+
 # nvim-config
 
 Config file and steps to install nvim in a debian based system.
@@ -110,3 +111,4 @@ cp -r ./.config/i3status ~/.config/i3status
 ```
 
 Then you can log out and, at the time to login, click on the settings wheel and select i3
+<!-- /home/luis/.local/bin add this to path -->

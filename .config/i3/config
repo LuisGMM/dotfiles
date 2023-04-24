@@ -293,7 +293,7 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip
 # # exec --no-startup-id i3-msg 'exec i3-sensible-terminal'
 
 exec --no-startup-id sh -c 'i3-msg "workspace 3; exec /usr/bin/google-chrome"'
-exec --no-startup-id sh -c 'sleep 0.5; i3-msg "workspace 4; exec /snap/bin/notion-snap"'
+exec --no-startup-id sh -c 'sleep 0.5; i3-msg "workspace 4; exec /snap/bin/notion-snap-reborn"'
 exec --no-startup-id sh -c 'sleep 1.5; i3-msg "workspace 6; exec /snap/bin/code"'
 exec --no-startup-id sh -c 'sleep 2; i3-msg "workspace 7; exec /usr/bin/github-desktop"'
 exec --no-startup-id sh -c 'sleep 2.8; i3-msg "workspace 8; exec i3-sensible-terminal"'
