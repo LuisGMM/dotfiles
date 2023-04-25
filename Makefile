@@ -1,7 +1,7 @@
 
 .PHONY: packages
 packages:
-	@sudo apt install tree -y
+	@sudo apt install tree htop neofetch -y
 
 .PHONY: neovim
 neovim:
