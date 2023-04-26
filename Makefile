@@ -5,7 +5,9 @@ packages:
 
 .PHONY: neovim
 neovim:
-	@sudo apt install neovim ripgrep fzf python3-neovim -y && \
+	@sudo add-apt-repository ppa:neovim-ppa/unstable && \
+	sudo apt update && \
+		sudo apt install pip neovim ripgrep fzf python3-neovim -y && \
 		pip install mypy flake8 isort pycln autoflake8 autoimport autopep8 && \
 		sudo apt install neovim -y && \
 		mkdir -p ~/.config/nvim && \
@@ -59,4 +61,17 @@ zsh:
 		sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
 		cp ./.zshrc ~/.zshrc
 
-	
+.PHONY: docker
+docker:
+	@sudo apt update && \
+		sudo apt install ca-certificates curl gnupg -y && \
+		sudo install -m 0755 -d /etc/apt/keyrings && \
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+		sudo chmod a+r /etc/apt/keyrings/docker.gpg && \
+		sudo apt update && \
+		sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y && \
+		sudo groupadd docker && \
+		sudo usermod -aG docker $USER && \
+		newgrp docker
+
+
