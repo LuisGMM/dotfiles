@@ -26,7 +26,10 @@ i3:
 	sudo apt install i3 brightnessctl maim xclip copyq xdotool -y && \
 	sudo usermod -aG video $USER && \
 	cp -r ./.config/i3 ~/.config && \
-	cp -r ./.config/i3status ~/.config
+	cp -r ./.config/i3status ~/.config && \
+	cp ./.config/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini && \
+	gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
 
 .PHONY: chrome
 chrome:
