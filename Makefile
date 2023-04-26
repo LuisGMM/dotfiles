@@ -7,7 +7,7 @@ packages:
 neovim:
 	@sudo add-apt-repository ppa:neovim-ppa/unstable && \
 	sudo apt update && \
-		sudo apt install pip neovim ripgrep fzf python3-neovim -y && \
+		sudo apt install git pip neovim ripgrep fzf python3-neovim -y && \
 		pip install mypy flake8 isort pycln autoflake8 autoimport autopep8 && \
 		sudo apt install neovim -y && \
 		mkdir -p ~/.config/nvim && \
@@ -16,7 +16,7 @@ neovim:
 	
 	@sudo apt install curl && \
 		curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
-		sudo apt install nodejs && \
+		sudo apt install nodejs -y && \
 		node --version && \
 		npm --version
 
@@ -48,7 +48,7 @@ githbub-desktop:
 .PHONY: notion
 notion:
 	@sudo apt update && \
-		sudo apt install snapd && \
+		sudo apt install snapd -y && \
 		sudo snap install notion-snap-reborn
 		cp ./.zshrc ~/.config/.zshrc
 
