@@ -6,8 +6,8 @@ packages:
 .PHONY: neovim
 neovim:
 	@sudo apt update && \
-	sudo apt install software-properties-common make && \
-		sudo apt install ninja-build gettext cmake unzip curl && \
+	sudo apt install software-properties-common make -y&& \
+		sudo apt install ninja-build gettext cmake unzip curl -y && \
 		sudo apt install git pip ripgrep fzf python3-neovim -y && \
 		sudo apt update && \
 		curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
