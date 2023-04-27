@@ -5,11 +5,19 @@ packages:
 
 .PHONY: neovim
 neovim:
-	@sudo add-apt-repository ppa:neovim-ppa/unstable && \
-	sudo apt update && \
-		sudo apt install git pip neovim ripgrep fzf python3-neovim -y && \
+	@sudo apt update && \
+	sudo apt install software-properties-common make && \
+		sudo apt install ninja-build gettext cmake unzip curl && \
+		sudo apt install git pip ripgrep fzf python3-neovim -y && \
+		sudo apt update && \
+		curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
+		sudo apt update && \
+		git clone https://github.com/neovim/neovim && \
+		cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && \
+		sudo make install && \
+		cd ../ && \
+		sudo rm -rf neovim && \
 		pip install mypy flake8 isort pycln autoflake8 autoimport autopep8 && \
-		sudo apt install neovim -y && \
 		mkdir -p ~/.config/nvim && \
 		touch ~/.config/nvim/init.lua && \
 		cp -r ./.config/nvim ~/.config
