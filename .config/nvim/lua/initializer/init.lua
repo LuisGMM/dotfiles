@@ -1,6 +1,7 @@
 require("initializer.packer")
-require("initializer.vim_set")
 require("initializer.generic_remaps")
+require("initializer.lualine")
+require("initializer.vim_set")
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`

@@ -22,6 +22,12 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+-- Set colorscheme
+vim.o.termguicolors = true
+vim.cmd([[colorscheme onedark]])
+
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 -- Decrease update time
 vim.o.updatetime = 250
 vim.wo.signcolumn = "yes"
