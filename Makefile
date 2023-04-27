@@ -1,7 +1,8 @@
 
 .PHONY: packages
 packages:
-	@sudo apt install tree htop neofetch -y
+	@sudo apt install tree htop neofetch pip -y && \
+		pip install thefuck
 
 .PHONY: neovim
 neovim:

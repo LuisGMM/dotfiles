@@ -26,12 +26,6 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = "yes"
 
--- Set colorscheme
-vim.o.termguicolors = true
-vim.cmd([[colorscheme onedark]])
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
 
