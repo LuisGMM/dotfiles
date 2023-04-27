@@ -1,6 +1,5 @@
 require("initializer.packer")
 require("initializer.generic_remaps")
-require("initializer.lualine")
 require("initializer.vim_set")
 
 -- [[ Highlight on yank ]]
