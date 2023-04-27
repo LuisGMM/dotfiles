@@ -13,7 +13,9 @@ neovim:
 		curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
 		sudo apt update && \
 		git clone https://github.com/neovim/neovim && \
-		cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo && \
+		cd neovim && \
+		git checkout stable && \
+		make CMAKE_BUILD_TYPE=RelWithDebInfo && \
 		sudo make install && \
 		cd ../ && \
 		sudo rm -rf neovim && \
