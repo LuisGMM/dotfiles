@@ -24,17 +24,17 @@ neovim:
 		mkdir -p ~/.config/nvim && \
 		touch ~/.config/nvim/init.lua && \
 		cp -r ./.config/nvim ~/.config && \
-		sudo rm -rf ~/.config/nvim/after
 
-	@nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; \ 
-		nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; \
-		nvim --headless +TransparentEnable +qa
-	
 	@sudo apt install curl && \
 		curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
 		sudo apt install nodejs -y && \
 		node --version && \
 		npm --version
+
+	@nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; \ 
+		nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; \
+		nvim --headless +TransparentEnable +qa
+
 
 .PHONY: i3
 i3:
