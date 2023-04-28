@@ -24,7 +24,8 @@ neovim:
 		pip install mypy flake8 isort pycln autoflake8 autoimport autopep8 && \
 		mkdir -p ~/.config/nvim && \
 		touch ~/.config/nvim/init.lua && \
-		cp -r ./.config/nvim ~/.config
+		cp -r ./.config/nvim ~/.config && \
+		rm -r ~/.config/nvim/after/
 
 	@sudo apt install curl && \
 		curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
@@ -34,7 +35,8 @@ neovim:
 
 	@nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; \ 
 		nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; \
-		nvim --headless +TransparentEnable +qa
+		nvim --headless +TransparentEnable +qa; \
+		cp -r .config/nvim/after/ ~/.config/nvim/
 
 
 .PHONY: i3
