@@ -33,10 +33,10 @@ neovim:
 		node --version && \
 		npm --version
 
-	@nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; \ 
-		nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; \
-		nvim --headless +TransparentEnable +qa; \
-		cp -r .config/nvim/after/ ~/.config/nvim/
+	@-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+	@-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+	@-nvim --headless +TransparentEnable +qa
+	@cp -r .config/nvim/after/ ~/.config/nvim/
 
 
 .PHONY: i3
