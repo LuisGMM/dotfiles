@@ -1,7 +1,8 @@
 
 .PHONY: packages
 packages:
-	@sudo apt install tree htop neofetch pip -y && \
+	@sudo apt install tree htop neofetch pip curl -y && \
+		curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
 		pip install thefuck
 
 .PHONY: neovim
