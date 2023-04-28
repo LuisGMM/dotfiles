@@ -25,7 +25,9 @@ neovim:
 		mkdir -p ~/.config/nvim && \
 		touch ~/.config/nvim/init.lua && \
 		cp -r ./.config/nvim ~/.config && \
-		rm -r ~/.config/nvim/after/
+		rm -r ~/.config/nvim/after/ && \
+		rm ~/.config/nvim/lua/initializer/colorscheme.lua  && \
+		touch ~/.config/nvim/lua/initializer/colorscheme.lua
 
 	@sudo apt install curl && \
 		curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
@@ -36,8 +38,8 @@ neovim:
 	@-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 	@-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 	@-nvim --headless +TransparentEnable +qa
-	@cp -r .config/nvim/after/ ~/.config/nvim/
-
+	@cp -r .config/nvim/after/ ~/.config/nvim/ && \
+		cp .config/nvim/lua/initializer/colorscheme.lua ~/.config/nvim/lua/initializer/
 
 .PHONY: i3
 i3:
