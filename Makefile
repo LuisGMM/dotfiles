@@ -3,7 +3,9 @@
 packages:
 	@sudo apt install tree htop neofetch pip curl -y && \
 		curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
-		pip install thefuck
+		pip install thefuck && \
+		pip install -U setuptools
+
 
 .PHONY: neovim
 neovim:
