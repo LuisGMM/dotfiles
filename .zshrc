@@ -107,6 +107,6 @@ bindkey '^ ' autosuggest-accept
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PYTHONPATH=${PYTHONPATH}:/usr/lib/python3/dist-packages/:/usr/local/lib/python3/dist-packages/    
+export PYTHONPATH=${PYTHONPATH}:/usr/lib/python3/dist-packages/:/usr/local/lib/python3/dist-packages/:~/.local/bin
 
 eval $(thefuck --alias)
