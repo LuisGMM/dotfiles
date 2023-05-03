@@ -12,7 +12,7 @@ neovim:
 	@sudo apt update && \
 	sudo apt install software-properties-common make -y&& \
 		sudo apt install ninja-build gettext cmake unzip curl -y && \
-		sudo apt install git pip ripgrep fzf python3-neovim -y && \
+		sudo apt install git pip ripgrep fzf python3-neovim python3.10-venv -y && \
 		sudo apt update && \
 		curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
 		sudo apt update && \
@@ -47,7 +47,7 @@ neovim:
 i3:
 	@sudo apt update && \
 	sudo apt install i3 brightnessctl maim xclip copyq xdotool -y && \
-	sudo usermod -aG video $USER && \
+	sudo usermod -aG video $$USER && \
 	cp -r ./.config/i3 ~/.config && \
 	cp -r ./.config/i3status ~/.config && \
 	cp ./.config/gtk-3.0/settings.ini ~/.config/gtk-3.0/settings.ini && \
@@ -76,28 +76,28 @@ notion:
 	@sudo apt update && \
 		sudo apt install snapd -y && \
 		sudo snap install notion-snap-reborn
-		cp ./.zshrc ~/.config/.zshrc
 
 .PHONY: zsh
 zsh:
 	@sudo apt install zsh curl -y && \
-		chsh -s $(which zsh) && \
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
-		sudo git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && \
-		sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
+		chsh -s $$(which zsh) && \
+		sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
+		sudo git clone https://github.com/zsh-users/zsh-autosuggestions $${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && \
+		sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
 		cp ./.zshrc ~/.zshrc
 
 .PHONY: docker
 docker:
 	@sudo apt update && \
-		sudo apt install ca-certificates curl gnupg -y && \
-		sudo install -m 0755 -d /etc/apt/keyrings && \
-		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
-		sudo chmod a+r /etc/apt/keyrings/docker.gpg && \
-		sudo apt update && \
-		sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y && \
-		sudo groupadd docker && \
-		sudo usermod -aG docker $USER && \
+		sudo apt install apt-transport-https ca-certificates curl software-properties-common -y && \
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
+		sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" && \
+		apt-cache policy docker-ce && \
+		sudo apt install docker-ce -y
+
+	@-sudo systemctl status docker
+
+	@-sudo groupadd docker
+
+	@sudo usermod -aG docker $${USER} && \
 		newgrp docker
-
-
