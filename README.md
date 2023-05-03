@@ -32,6 +32,17 @@ Then you can run in the neovim's command line tool:
 `:PackerSync`
 `:TransparentEnable`
 
+If these things will run in a docker, or you have a git error about
+`safe-directory` when using neovim fugitive or telescope, try executing this command:
+
+```bash
+git config --global --add safe.directory '*'
+```
+
+Important links:
+- [Git error](https://stackoverflow.com/questions/72978485/git-submodule-update-failed-with-fatal-detected-dubious-ownership-in-repositor)
+- [Third party plugins](https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/pylsp/README.md)
+
 ### i3 things
 
 To use i3, you can install it with `make i3`, can log out and, at the time to
@@ -39,8 +50,6 @@ login, click on the settings wheel and select i3
 
 ### Links
 
-Important links:
-- [Third party plugins](https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/pylsp/README.md)
 
 Important links
 - [Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
