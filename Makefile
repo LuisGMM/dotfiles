@@ -12,7 +12,7 @@ neovim:
 	@sudo apt update && \
 	sudo apt install software-properties-common make -y&& \
 		sudo apt install ninja-build gettext cmake unzip curl -y && \
-		sudo apt install git pip ripgrep fzf python3-neovim python3.10-venv -y && \
+		sudo apt install git pip ripgrep fzf python3-neovim python3-venv -y && \
 		sudo apt update && \
 		curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
 		sudo apt update && \
