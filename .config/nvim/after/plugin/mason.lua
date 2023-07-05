@@ -96,7 +96,6 @@ local servers = {
 			},
 		},
 	},
-	cmake = {},
 	-- markdownlint = {},
 	marksman = {},
 	-- selene = {},
