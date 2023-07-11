@@ -1,5 +1,10 @@
 -- ALE Configuration
 vim.g.ale_linters = {
+	dart = {
+		"analysis_server",
+		"language_server",
+		"dart_analyze",
+	},
 	python = {
 		"mypy",
 		"flake8",
@@ -14,6 +19,12 @@ vim.g.ale_linters = {
 }
 
 vim.g.ale_fixers = {
+	dart = {
+		-- "dartfmt", -- This one does not work.
+		"dart-format",
+		"remove_trailing_lines",
+		"trim_whitespace",
+	},
 	python = {
 		"add_blank_lines_for_python_control_statements", -- Add blank lines before control statements.
 		"autoflake", -- Fix flake issues with autoflake.

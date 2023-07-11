@@ -129,5 +129,15 @@ mason_lspconfig.setup_handlers({
 	end,
 })
 
+-- Configure dart lsp
+-- Because it is not directly supported by Mason, it needs to be directly configured
+-- with the same keybinding (on_attach method) and capabilities.
+local lspconfig = require("lspconfig")
+
+lspconfig.dartls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
 -- Turn on lsp status information
 require("fidget").setup()

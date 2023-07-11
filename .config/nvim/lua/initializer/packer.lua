@@ -60,6 +60,7 @@ require("packer").startup(function(use)
 		requires = {
 			-- Snippets collection for a set of different programming languages for faster development
 			"rafamadriz/friendly-snippets",
+			"Neevash/awesome-flutter-snippets",
 		},
 		-- config = [[ require('plugins.luasnip') ]]
 	})
@@ -134,6 +135,15 @@ require("packer").startup(function(use)
 			})
 		end,
 	})
+
+	use({
+		"akinsho/flutter-tools.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"stevearc/dressing.nvim", -- optional for vim.ui.select
+		},
+	})
+	
 
 	use("xiyaowong/nvim-transparent")
 	-- Fuzzy Finder (files, lsp, etc)
