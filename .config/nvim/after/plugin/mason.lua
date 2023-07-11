@@ -132,6 +132,7 @@ mason_lspconfig.setup_handlers({
 -- Configure dart lsp
 -- Because it is not directly supported by Mason, it needs to be directly configured
 -- with the same keybinding (on_attach method) and capabilities.
+-- Solution found here: https://www.reddit.com/r/neovim/comments/14ikw2z/why_my_lsp_keymaps_doesnt_work_with_dart_lsp/
 local lspconfig = require("lspconfig")
 
 lspconfig.dartls.setup({
