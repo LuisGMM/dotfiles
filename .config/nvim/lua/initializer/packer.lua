@@ -143,7 +143,6 @@ require("packer").startup(function(use)
 			"stevearc/dressing.nvim", -- optional for vim.ui.select
 		},
 	})
-	
 
 	use("xiyaowong/nvim-transparent")
 	-- Fuzzy Finder (files, lsp, etc)
