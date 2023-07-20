@@ -271,6 +271,7 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip
 
 # Setup static background color
 exec --no-startup-id xsetroot -solid "#000000"
+exec --no-startup-id blueman-applet &
 
 
 # See for startup apps:

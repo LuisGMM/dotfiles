@@ -46,7 +46,7 @@ neovim:
 .PHONY: i3
 i3:
 	@sudo apt update && \
-	sudo apt install i3 brightnessctl maim xclip copyq xdotool -y && \
+	sudo apt install i3 brightnessctl maim xclip copyq xdotool blueman -y && \
 	sudo usermod -aG video $$USER && \
 	cp -r ./.config/i3 ~/.config && \
 	cp -r ./.config/i3status ~/.config && \
