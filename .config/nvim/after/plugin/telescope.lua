@@ -1,5 +1,14 @@
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+
+local fzf_opts = {
+	fuzzy = true, -- false will only do exact matching
+	override_generic_sorter = true, -- override the generic sorter
+	override_file_sorter = true, -- override the file sorter
+	case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+	-- the default case_mode is "smart_case"
+}
+
 require("telescope").setup({
 	defaults = {
 		mappings = {
@@ -8,6 +17,18 @@ require("telescope").setup({
 				["<C-d>"] = false,
 			},
 		},
+	},
+
+	-- To improve symbols searches results. https://github.com/nvim-telescope/telescope.nvim/issues/2104
+
+	pickers = {
+		-- Manually set sorter, for some reason not picked up automatically
+		lsp_dynamic_workspace_symbols = {
+			sorter = require("telescope").extensions.fzf.native_fzf_sorter(fzf_opts),
+		},
+	},
+	extensions = {
+		fzf = fzf_opts,
 	},
 })
 
