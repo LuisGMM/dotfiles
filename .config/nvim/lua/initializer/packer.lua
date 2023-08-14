@@ -17,6 +17,18 @@ require("packer").startup(function(use)
 	-- Package manager
 	use("wbthomason/packer.nvim")
 
+	-- Shows an indicator when the LSP is working
+	-- Necessary to check the legacy tag.
+	use({
+		"j-hui/fidget.nvim",
+		tag = "legacy",
+		config = function()
+			require("fidget").setup({
+				-- options
+			})
+		end,
+	})
+
 	use({ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		requires = {
