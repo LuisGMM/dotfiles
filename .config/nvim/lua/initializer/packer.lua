@@ -144,6 +144,11 @@ require("packer").startup(function(use)
 		},
 	})
 
+	-- Debugger
+	use("mfussenegger/nvim-dap")
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+	use("mfussenegger/nvim-dap-python")
+
 	use("xiyaowong/nvim-transparent")
 	-- Fuzzy Finder (files, lsp, etc)
 	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x", requires = { "nvim-lua/plenary.nvim" } })
