@@ -65,6 +65,8 @@ require("packer").startup(function(use)
 		},
 		-- config = [[ require('plugins.cmp') ]]
 	})
+	-- Github Copilot
+	use({ "github/copilot.vim" })
 
 	-- Snippet Engine for Neovim written in Lua.
 	use({
