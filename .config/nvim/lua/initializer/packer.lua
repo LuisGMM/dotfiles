@@ -62,6 +62,7 @@ require("packer").startup(function(use)
 			"L3MON4D3/LuaSnip",
 			-- LuaSnip completion source for nvim-cmp
 			"saadparwaiz1/cmp_luasnip",
+			"honza/vim-snippets",
 		},
 		-- config = [[ require('plugins.cmp') ]]
 	})
@@ -75,6 +76,7 @@ require("packer").startup(function(use)
 			-- Snippets collection for a set of different programming languages for faster development
 			"rafamadriz/friendly-snippets",
 			"Neevash/awesome-flutter-snippets",
+			"honza/vim-snippets",
 		},
 		-- config = [[ require('plugins.luasnip') ]]
 	})
@@ -158,9 +160,13 @@ require("packer").startup(function(use)
 		},
 	})
 
+	-- Latex related
+	use("lervag/vimtex")
+
 	-- Debugger
 	use("mfussenegger/nvim-dap")
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+	use("theHamsta/nvim-dap-virtual-text")
 	use("mfussenegger/nvim-dap-python")
 
 	use("xiyaowong/nvim-transparent")
