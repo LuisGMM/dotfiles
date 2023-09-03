@@ -44,6 +44,27 @@ neovim:
 	@cp -r .config/nvim/after/ ~/.config/nvim/ && \
 		cp .config/nvim/lua/initializer/colorscheme.lua ~/.config/nvim/lua/initializer/
 
+.PHONY: neovim_tex
+neovim_tex:
+	@ : \
+	&& sudo apt update \
+	&& sudo apt install -y \
+        latexmk \
+	texlive-full \
+	texlive-latex-base \
+	texlive-fonts-recommended \
+	texlive-fonts-extra \
+	texlive-latex-extra \
+	\
+	zathura \
+	zathura-pdf-poppler \
+	\
+	xdotool \
+	\
+	libfuse2 \
+	&& :
+
+
 .PHONY: i3
 i3:
 	@sudo apt update && \
