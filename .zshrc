@@ -81,6 +81,7 @@ source $ZSH/oh-my-zsh.sh
 # Use TAB to accept suggestions
 bindkey '^ ' autosuggest-accept
 
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -106,7 +107,18 @@ bindkey '^ ' autosuggest-accept
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
 
-export PYTHONPATH=${PYTHONPATH}:/usr/lib/python3/dist-packages/:/usr/local/lib/python3/dist-packages/:~/.local/bin
+# Alias for fuzzy finding folders in some directories and chanding to the directory
+alias sd='cd $(find /media/luis/exOS/GitHub ~/Downloads -type d | fzf)'
+alias nsd='nvim $(find /media/luis/exOS/GitHub ~/Downloads -type d | fzf)'
+# Alias for fuzzy finding files in some directories and chanding to the parent directory
+# where the file is
+alias sf='cd $(dirname $(find /media/luis/exOS/GitHub ~/Downloads -type f | fzf))'
+alias nsf='nvim $(find /media/luis/exOS/GitHub ~/Downloads -type f | fzf)'
+
+export PYTHONPATH=${PYTHONPATH}:/media/luis/exOS/GitHub/ruit_backend/ruit_back/:/usr/lib/python3/dist-packages/:/usr/local/lib/python3/dist-packages/:~/.local/bin
+# For flutter packages or something
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 eval $(thefuck --alias)
