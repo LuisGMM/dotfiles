@@ -110,8 +110,8 @@ bindkey '^ ' autosuggest-accept
 #
 
 # Alias for fuzzy finding folders in some directories and chanding to the directory
-alias sd='cd $(find /media/luis/exOS/GitHub ~/Downloads -type d -not -path "*venv/*" | fzf)'
-alias nsd='nvim $(find /media/luis/exOS/GitHub ~/Downloads -type d -not -path "*venv/*" | fzf)'
+alias sd='cd $(find /media/luis/exOS/GitHub ~/Downloads -type d -not -path "*venv/*" | fzf -e)'
+alias nsd='nvim $(find /media/luis/exOS/GitHub ~/Downloads -type d -not -path "*venv/*" | fzf -e)'
 # Alias for fuzzy finding files in some directories and chanding to the parent directory
 # where the file is
 alias sf='cd $(dirname $(find /media/luis/exOS/GitHub ~/Downloads -type f | fzf))'
