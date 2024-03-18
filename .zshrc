@@ -109,6 +109,10 @@ bindkey '^ ' autosuggest-accept
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
+# Alias for docker-compose. It overrides the command for a calculator or something, but who cares.
+alias dc='docker-compose'
+
+
 # Alias for fuzzy finding folders in some directories and chanding to the directory
 alias sd='cd $(find /media/luis/exOS/GitHub ~/Downloads -type d -not -path "*venv/*" | fzf -e)'
 alias nsd='nvim $(find /media/luis/exOS/GitHub ~/Downloads -type d -not -path "*venv/*" | fzf -e)'
