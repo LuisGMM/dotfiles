@@ -114,11 +114,12 @@ alias dc='docker-compose'
 
 
 # Alias for fuzzy finding folders in some directories and chanding to the directory
-alias sd='cd $(find /media/luis/exOS/GitHub ~/Downloads -type d -not -path "*venv/*" | fzf -e)'
-alias nsd='nvim $(find /media/luis/exOS/GitHub ~/Downloads -type d -not -path "*venv/*" | fzf -e)'
+alias sd='cd $(find /media/luis/exOS/GitHub -type d \( -path "*__py*" -o -path "*/.*" -o -path "*venv/*" \) -prune -o -print | fzf -e)'
+alias nsd='nvim $(find /media/luis/exOS/GitHub -type d \( -path "*__py*" -o -path "*/.*" -o -path "*venv/*" \) -prune -o -print | fzf -e)'
+
 # Alias for fuzzy finding files in some directories and chanding to the parent directory
 # where the file is
-alias sf='cd $(dirname $(find /media/luis/exOS/GitHub ~/Downloads -type f | fzf))'
+alias sf='cd $(find /media/luis/exOS/GitHub ~/Downloads -type f -exec dirname {} \+ | fzf)'
 alias nsf='nvim $(find /media/luis/exOS/GitHub ~/Downloads -type f | fzf)'
 
 export PYTHONPATH=${PYTHONPATH}:/media/luis/exOS/GitHub/ruit_backend/ruit_back/:/usr/lib/python3/dist-packages/:/usr/local/lib/python3/dist-packages/:~/.local/bin
