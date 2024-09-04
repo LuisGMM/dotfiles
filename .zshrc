@@ -112,6 +112,9 @@ bindkey '^ ' autosuggest-accept
 # Alias for docker-compose. It overrides the command for a calculator or something, but who cares.
 alias dc='docker-compose'
 
+# Alias to copy to clipboard
+# usage:
+alias c='xclip -sel c'
 
 # Alias for fuzzy finding folders in some directories and chanding to the directory
 alias sd='cd $(find /media/luis/exOS/GitHub -type d \( -path "*__py*" -o -path "*/.*" -o -path "*venv/*" \) -prune -o -print | fzf -e)'
