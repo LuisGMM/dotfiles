@@ -20,6 +20,10 @@ vim.g.ale_linters = {
 }
 
 vim.g.ale_fixers = {
+
+	c = {
+		"clang-format",
+	},
 	dart = {
 		-- "dartfmt", -- This one does not work.
 		"dart-format",
@@ -48,12 +52,15 @@ vim.g.ale_fixers = {
 		"remove_trailing_lines", -- Remove all blank lines at the end of a file.
 		"trim_whitespace", -- Remove all trailing whitespace characters at the end of every line.
 	},
+	markdown = {
+		"textlint",
+		"remove_trailing_lines",
+		"trim_whitespace",
+	},
 }
 
 -- Ale config
 
-vim.g.ale_python_flake8_options = "--max-line-length 100"
-vim.g.ale_python_isort_options = ""
 -- vim.g.ale_python_isort_options = "-l 100 --top false --use-parenthesis"
 vim.g.ale_sign_error = "E"
 vim.g.ale_sign_warning = "W"

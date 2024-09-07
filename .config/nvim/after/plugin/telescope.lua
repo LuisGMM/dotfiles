@@ -32,6 +32,9 @@ require("telescope").setup({
 	},
 })
 
+-- Enable telescope flutter commands, if installed
+pcall(require("telescope").load_extension, "flutter")
+
 -- Enable telescope fzf native, if installed
 pcall(require("telescope").load_extension, "fzf")
 
