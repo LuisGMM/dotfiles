@@ -1,7 +1,7 @@
 
 .PHONY: packages
 packages:
-	@sudo apt install tree htop neofetch pip curl -y && \
+	@sudo apt install lxappearance tree htop neofetch pip curl -y && \
 		curl -sS https://bootstrap.pypa.io/get-pip.py | python3 && \
 		pip install thefuck && \
 		pip install -U setuptools

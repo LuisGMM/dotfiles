@@ -46,7 +46,8 @@ Important links:
 ### i3 things
 
 To use i3, you can install it with `make i3`, can log out and, at the time to
-login, click on the settings wheel and select i3
+login, click on the settings wheel and select i3.
+Also, to change the appearance to a black theme use `lxappearance`.
 
 ### Links
 
