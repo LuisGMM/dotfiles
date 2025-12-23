@@ -100,6 +100,7 @@ local servers = {
 	marksman = {},
 	-- selene = {},
 	-- stylua = {},
+	bashls = {},
 }
 
 -- Setup neovim lua configuration

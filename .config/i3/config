@@ -217,17 +217,18 @@ bar {
 # ------------------------------------------
 exec --no-startup-id nm-applet
 
-bindsym $mod+Shift+s exec --no-startup-id ~/dotfiles/bin/monitor
-bindsym $mod+Shift+n exec --no-startup-id ~/dotfiles/bin/resolution
+# bindsym $mod+Shift+s exec --no-startup-id ~/dotfiles/bin/monitor
+# bindsym $mod+Shift+n exec --no-startup-id ~/dotfiles/bin/resolution
 
 # FKeys
 # Pulse Audio controls
 # check https://faq.i3wm.org/question/3747/enabling-multimedia-keys.1.html
 # if they do not work (change the 1 by 0 in the following commands)
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
 
 #
 # # Sreen brightness controls
@@ -242,6 +243,9 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # To see the name of a key run xev in a terminal, type the key and check the output.
 # See also: http://xahlee.info/linux/linux_show_keycode_keysym.html
+# Lock screen
+bindsym $mod+Shift+m exec i3lock -c 000000
+
 # Suspend
 bindsym $mod+Shift+comma exec systemctl suspend
 
@@ -252,26 +256,82 @@ bindsym $mod+Shift+period exec shutdown -r now
 bindsym $mod+Shift+slash exec shutdown now
 
 
-# Check https://dev.to/dianjuar/i3wm-screenshot-shortcuts-3n7b
-##  Screenshots in files
-# Print window and save
-bindsym Print exec --no-startup-id maim --format=png "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-all.png"
-bindsym $mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-current.png"
-# Select portion and save
-bindsym Shift+Print exec --no-startup-id maim --format=png --select "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-selected.png"
+# # Check https://dev.to/dianjuar/i3wm-screenshot-shortcuts-3n7b
+# ##  Screenshots in files
+# # Print window and save
+# bindsym Print exec --no-startup-id maim --format=png "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-all.png"
+# bindsym $mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-current.png"
+# # Select portion and save
+# bindsym Shift+Print exec --no-startup-id maim --format=png --select "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-selected.png"
+#
+# # Screenshots in clipboards
+# # Print window and save to clipboard
+# bindsym Ctrl+Print exec --no-startup-id maim --format=png | xclip -selection clipboard -t image/png
+# bindsym Ctrl+$mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+# # Select portion and save to clipboard
+# bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip -selection clipboard -t image/png
 
-## Screenshots in clipboards
-# Print window and save to clipboard
-bindsym Ctrl+Print exec --no-startup-id maim --format=png | xclip -selection clipboard -t image/png
-bindsym Ctrl+$mod+Print exec --no-startup-id maim --format=png --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-# Select portion and save to clipboard
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --format=png --select | xclip -selection clipboard -t image/png
+# Screenshot: Full screen and save to file
+bindsym Print exec --no-startup-id flameshot full -p ~/Pictures
 
+# Screenshot: Active window and save to file
+bindsym $mod+Print exec --no-startup-id flameshot window -p ~/Pictures
+
+# Screenshot: Select area and save to file
+bindsym Shift+Print exec --no-startup-id flameshot gui -p ~/Pictures
+
+# Screenshot: Full screen and copy to clipboard
+bindsym Ctrl+Print exec --no-startup-id flameshot full -c
+
+# Screenshot: Active window and copy to clipboard
+bindsym Ctrl+$mod+Print exec --no-startup-id flameshot window -c
+
+# Screenshot: Select area and copy to clipboard
+bindsym Ctrl+Shift+Print exec --no-startup-id flameshot gui -c
+
+
+
+# Dictado en español
+bindsym $mod+Ctrl+b exec --no-startup-id /home/luis/.config/i3/whisper-dictation toggle es
+
+# Dictado en inglés (por si lo necesitas)
+bindsym $mod+Ctrl+v exec --no-startup-id /home/luis/.config/i3/whisper-dictation toggle en
+
+# Forzar parada (por si el toggle no encuentra PID)
+bindsym $mod+Ctrl+c exec --no-startup-id /home/luis/.config/i3/whisper-dictation stop
+
+
+# Forzar parada (por si el toggle no encuentra PID)
+bindsym $mod+Shift+s exec --no-startup-id /home/luis/.config/i3/toggle-monitors.sh
+# bindsym $mod+Ctrl+c exec --no-startup-id /home/luis/.config/i3/whisper-dictation stop
+
+
+
+# # # Speech to text in spanish and english
+# # bindsym $mod+Ctrl+b exec --no-startup-id ~/.config/nerd-dictation/nerd-dictation begin \
+# #   --vosk-model-dir="$HOME/.config/nerd-dictation/model-es" \
+# #   --config="$HOME/.config/nerd-dictation/nerd-dictation-es.py" \
+# #   --full-sentence --numbers-as-digits --punctuate-from-previous-timeout 0.8
+# # bindsym $mod+Ctrl+v exec --no-startup-id ~/.config/nerd-dictation/nerd-dictation begin \
+# #   --vosk-model-dir="$HOME/.config/nerd-dictation/model-en" \
+# #   --config="$HOME/.config/nerd-dictation/nerd-dictation-en.py" \
+# #   --full-sentence --numbers-as-digits --punctuate-from-previous-timeout 0.8
+#
+# # Finish dictation 
+# bindsym $mod+Ctrl+c exec --no-startup-id ~/.config/nerd-dictation/nerd-dictation suspend
+# bindsym $mod+Ctrl+x exec --no-startup-id ~/.config/nerd-dictation/nerd-dictation resume
+# bindsym $mod+Ctrl+z exec --no-startup-id ~/.config/nerd-dictation/nerd-dictation end
+
+
+# Mount partition
+exec --no-startup-id sh -c 'sudo mkdir -p /media/luis/exOS && sudo mount /dev/nvme0n1p5 /media/luis/exOS'
+
+# Setup resolutionc
+exec --no-startup-id sh -c '~/.config/i3/script_xrandr.sh'
 
 
 # Setup static background color
 exec --no-startup-id xsetroot -solid "#000000"
-exec --no-startup-id blueman-applet &
 
 
 # See for startup apps:
@@ -298,14 +358,29 @@ exec --no-startup-id blueman-applet &
 # exec --no-startup-id i3-msg 'exec /usr/bin/github-desktop'
 # # exec --no-startup-id i3-msg 'exec i3-sensible-terminal'
 
-exec --no-startup-id sh -c 'sleep 0.1; i3-msg "workspace 3; exec /usr/bin/google-chrome"'
-# exec --no-startup-id sh -c 'sleep 0.5; i3-msg "workspace 4; exec /snap/bin/notion-snap-reborn"'
-# exec --no-startup-id sh -c 'sleep 1.5; i3-msg "workspace 6; exec /snap/bin/code"'
-# exec --no-startup-id sh -c 'sleep 2; i3-msg "workspace 7; exec /usr/bin/github-desktop"'
-exec --no-startup-id sh -c 'sleep 0.7; i3-msg "workspace 8; exec i3-sensible-terminal"'
-exec --no-startup-id sh -c 'sleep 0.8; i3-msg "workspace 9; exec i3-sensible-terminal"'
+# exec --no-startup-id i3-msg 'workspace 8; exec i3-sensible-terminal -e "cd /media/luis/exOS/GitHub/ruit_backend && nvim . && zsh"'
+# exec --no-startup-id i3-msg 'workspace 8; exec i3-sensible-terminal -e "cd /media/luis/exOS/GitHub/ruit_frontend/ruit && sleep 0.3 && nvim . && zsh"'
+# exec --no-startup-id i3-msg 'workspace 9; exec i3-sensible-terminal -e "cd /media/luis/exOS/GitHub/ruit_backend && dc up -d && dc logs -f && zsh"'
+# exec --no-startup-id i3-msg 'workspace 9; exec i3-sensible-terminal -e "cd /media/luis/exOS/GitHub/ruit_frontend/ruit && sleep 0.3 && flutter emulators --launch Medium_Phone_API_31 && sleep 12 && flutter run && zsh"'
 
-assign [class="notion-snap-reborn"] number 4
-exec --no-startup-id sh -c 'sleep 0.9; i3-msg "workspace 4; exec /snap/bin/notion-snap-reborn"'
+exec --no-startup-id i3-msg 'workspace 8; exec i3-sensible-terminal -e "tmux new-session -s my_session '~/.tmux/plugins/tmux-resurrect/scripts/restore.sh'"'
+
+
+assign [class="notion-snap"] number 4
 assign [class="GitHub Desktop"] number 7
-exec --no-startup-id sh -c 'sleep 0.9; i3-msg "workspace 7; exec /usr/bin/github-desktop"'
+exec --no-startup-id sh -c 'sleep 0.5; i3-msg "workspace 7; exec /usr/bin/github-desktop"'
+
+exec --no-startup-id sh -c 'sleep 1; i3-msg "workspace 3; exec /usr/bin/google-chrome"'
+
+exec --no-startup-id sh -c 'sleep 1.3; i3-msg "workspace 4; exec /snap/bin/notion-snap"'
+
+
+exec --no-startup-id blueman-applet &
+exec --no-startup-id /usr/libexec/gsd-xsettings
+exec --no-startup-id xmodmap ~/.Xmodmap
+exec --no-startup-id systemctl --user stop pipewire-pulse.socket && systemctl --user stop pipewire-pulse.service && systemctl --user start pipewire-pulse.socket && systemctl --user start pipewire-pulse.service
+
+
+
+exec --no-startup-id flameshot &
+

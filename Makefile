@@ -24,6 +24,8 @@ neovim:
 		sudo make install && \
 		cd ../ && \
 		sudo rm -rf neovim && \
+		sudo apt install shellcheck -y && \
+		sudo snap install shfmt && \
 		pip install mypy flake8 isort pycln autoflake8 autoimport autopep8 && \
 		mkdir -p ~/.config/nvim && \
 		touch ~/.config/nvim/init.lua && \

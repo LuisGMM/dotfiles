@@ -1,0 +1,170 @@
+#!/usr/bin/env python3
+"""
+whisper-dictation ─ dictado continuo local (start/stop/toggle)
+Atajos típicos en i3:
+   bindsym $mod+Ctrl+b exec --no-startup-id ~/.config/i3/whisper-dictation toggle es
+   bindsym $mod+Ctrl+c exec --no-startup-id ~/.config/i3/whisper-dictation stop
+"""
+
+import os, sys, signal, subprocess, queue, re, numpy as np
+from pathlib import Path
+import sounddevice as sd, webrtcvad
+from faster_whisper import WhisperModel
+import torch
+
+# ───── Configuración rápida ────────────────────────────────────────────────────
+PIDFILE = Path.home() / ".cache/whisper-dictation.pid"
+MODEL = "large-v3-turbo"  # WER 1.9%, 2.5GB VRAM, soporta español
+RATE = 16_000  # Hz
+VAD_MODE = 2  # 0–3 (3 = más agresivo)
+LANG = "es"  # idioma por defecto
+IN_DEV = 7  # índice PortAudio (7 PipeWire | 8 Pulse)
+SEG_MAX_MS = 12_000  # cortar si >12 s sin pausa
+PAUSE_END_MS = 1200  # silencio ≥1,2 s = fin de frase
+NO_SPEECH_THRESHOLD = 0.7  # umbral para filtrar segmentos sin habla
+
+# Patrones de alucinaciones conocidas de Whisper
+HALLUCINATION_PATTERNS = [
+    r"Subtítulos.*Amara\.org",
+    r"Subtítulos realizados por la comunidad",
+    r"Sous-?[Tt]itres? (par|créé)",  # francés
+    r"Sottotitoli creati",  # italiano
+    r"Copyright WDR",  # alemán
+    r"Thanks for watching",
+]
+# ───────────────────────────────────────────────────────────────────────────────
+
+
+# ─── Utilidades PID ────────────────────────────────────────────────────────────
+def running() -> bool:
+    return PIDFILE.exists() and PIDFILE.read_text().strip().isdigit()
+
+
+def kill_running() -> None:
+    if running():
+        os.kill(int(PIDFILE.read_text()), signal.SIGTERM)
+        PIDFILE.unlink(missing_ok=True)
+
+
+def is_valid_transcription(text: str) -> bool:
+    """Retorna False si el texto parece una alucinación de Whisper."""
+    text = text.strip()
+    if not text:
+        return False
+    for pattern in HALLUCINATION_PATTERNS:
+        if re.search(pattern, text, re.IGNORECASE):
+            return False
+    return True
+
+
+# ─── Proceso principal ─────────────────────────────────────────────────────────
+def start(lang: str = LANG) -> None:
+    if running():
+        print("Ya está en marcha", file=sys.stderr)
+
+        return
+
+    # fork → hijo = worker, padre guarda PID y sale
+    pid = os.fork()
+
+    if pid:
+        PIDFILE.write_text(str(pid))
+
+        return
+
+    # ── Hijo: prepara modelo, VAD y audio ─────────────────────────────────────
+    model = WhisperModel(
+        MODEL,
+        device="cuda" if torch.cuda.is_available() else "cpu",
+        compute_type="int8_float16" if torch.cuda.is_available() else "int8",
+        # device="cpu",  # línea 46 aprox.
+        # compute_type="int8",  # keep memory low
+    )
+    vad = webrtcvad.Vad(VAD_MODE)
+    q = queue.Queue()
+
+    def callback(indata, frames, t, status):
+        q.put(bytes(indata))
+
+    with sd.RawInputStream(
+        samplerate=RATE,
+        channels=1,
+        dtype="int16",
+        blocksize=RATE // 50,  # 20 ms
+        device=(IN_DEV, None),  # solo entrada
+        callback=callback,
+    ):
+        buf, speech = b"", bytearray()
+        silence_ms, history = 0, ""
+
+        while True:
+            buf += q.get()
+
+            while len(buf) >= 960:  # 960 bytes = 30 ms @16 kHz/16-bit
+                frame, buf = buf[:960], buf[960:]
+
+                if vad.is_speech(frame, RATE):
+                    speech += frame
+                    silence_ms = 0
+                else:
+                    silence_ms += 30
+
+                # ¿cerramos segmento?
+
+                if speech and (
+                    silence_ms >= PAUSE_END_MS
+                    or len(speech) > RATE * SEG_MAX_MS // 1000
+                ):
+                    # convierte a float32 −1..1
+                    pcm = (
+                        np.frombuffer(speech, dtype=np.int16).astype(np.float32)
+                        / 32768.0
+                    )
+
+                    segs, _ = model.transcribe(
+                        pcm,
+                        language=lang,
+                        task="transcribe",
+                        beam_size=5,
+                        temperature=0,
+                        condition_on_previous_text=True,
+                        initial_prompt=history[-800:],  # ~200 tokens
+                    )
+
+                    # Filtrar segmentos con alta probabilidad de no-habla
+                    segments = [
+                        s for s in segs if s.no_speech_prob < NO_SPEECH_THRESHOLD
+                    ]
+                    text = "".join(s.text for s in segments).strip()
+
+                    # Solo escribir si es una transcripción válida
+                    if text and is_valid_transcription(text):
+                        text += " "
+                        history += text
+                        subprocess.run(
+                            ["xdotool", "type", "--delay", "0", "--clearmodifiers", text],
+                            check=False,
+                        )
+                    speech.clear()
+
+
+# ─── CLI ───────────────────────────────────────────────────────────────────────
+def main():
+    if len(sys.argv) < 2:
+        print("Uso: start|stop|toggle [es|en|...]", file=sys.stderr)
+        sys.exit(1)
+    cmd, *rest = sys.argv[1:]
+    lang = rest[0] if rest else LANG
+
+    if cmd == "toggle":
+        kill_running() if running() else start(lang)
+    elif cmd == "start":
+        start(lang)
+    elif cmd == "stop":
+        kill_running()
+    else:
+        print("Comando desconocido", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()
