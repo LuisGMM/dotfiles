@@ -1,0 +1,51 @@
+# i3blocks config - whisper-dictation + system metrics
+
+# Estado dictado
+[dictation]
+command=~/.config/i3blocks/scripts/dictation
+interval=1
+
+# Volumen
+[volume]
+command=pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -1 | xargs printf "VOL %s"
+interval=1
+
+# GPU VRAM
+[gpu]
+command=~/.config/i3blocks/scripts/gpu
+interval=5
+
+# CPU
+[cpu]
+command=~/.config/i3blocks/scripts/cpu
+interval=2
+
+# Disco
+[disk]
+command=~/.config/i3blocks/scripts/disk
+interval=30
+
+# WiFi
+[wifi]
+command=~/.config/i3blocks/scripts/wifi
+interval=5
+
+# Ethernet
+[ethernet]
+command=~/.config/i3blocks/scripts/ethernet
+interval=5
+
+# Bateria
+[battery]
+command=~/.config/i3blocks/scripts/battery
+interval=10
+
+# Memoria
+[memory]
+command=~/.config/i3blocks/scripts/memory
+interval=5
+
+# Fecha y hora
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1

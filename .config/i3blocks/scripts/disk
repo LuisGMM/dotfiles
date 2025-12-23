@@ -1,0 +1,14 @@
+#!/bin/bash
+USAGE=$(df / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')
+
+if [ "$USAGE" -ge 90 ]; then
+    COLOR="#FF0000"  # Rojo
+elif [ "$USAGE" -ge 70 ]; then
+    COLOR="#FFFF00"  # Amarillo
+else
+    COLOR="#00FF00"  # Verde
+fi
+
+echo "HDD ${USAGE}%"
+echo "HDD ${USAGE}%"
+echo "$COLOR"

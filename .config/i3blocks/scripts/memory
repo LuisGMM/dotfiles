@@ -1,0 +1,14 @@
+#!/bin/bash
+USAGE=$(free | awk '/Mem:/ {printf "%.0f", $3/$2*100}')
+
+if [ "$USAGE" -ge 90 ]; then
+    COLOR="#FF0000"  # Rojo
+elif [ "$USAGE" -ge 70 ]; then
+    COLOR="#FFFF00"  # Amarillo
+else
+    COLOR="#00FF00"  # Verde
+fi
+
+printf "MEM %.0f%%\n" "$USAGE"
+printf "MEM %.0f%%\n" "$USAGE"
+echo "$COLOR"

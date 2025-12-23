@@ -1,0 +1,12 @@
+#!/bin/bash
+STATUS_FILE="$HOME/.cache/whisper-dictation.status"
+if [ -f "$STATUS_FILE" ]; then
+    LANG=$(cat "$STATUS_FILE")
+    echo "🎤 $LANG"
+    echo "🎤 $LANG"
+    echo "#00FF00"  # Verde - activo
+else
+    echo "🎤 OFF"
+    echo "🎤 OFF"
+    echo "#888888"  # Gris - inactivo
+fi

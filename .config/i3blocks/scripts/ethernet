@@ -1,0 +1,25 @@
+#!/bin/bash
+IFACE=$(ip link | grep -E '^[0-9]+: (e|enp)' | head -1 | awk -F': ' '{print $2}')
+if [ -n "$IFACE" ]; then
+    STATE=$(cat /sys/class/net/$IFACE/operstate 2>/dev/null)
+    if [ "$STATE" = "up" ]; then
+        SPEED=$(cat /sys/class/net/$IFACE/speed 2>/dev/null)
+        if [ -n "$SPEED" ] && [ "$SPEED" != "-1" ]; then
+            echo "E ($SPEED Mbit/s)"
+            echo "E up"
+            echo "#00FF00"  # Verde
+        else
+            echo "E up"
+            echo "E up"
+            echo "#00FF00"
+        fi
+    else
+        echo "E down"
+        echo "E down"
+        echo "#FF0000"  # Rojo
+    fi
+else
+    echo "E N/A"
+    echo "E N/A"
+    echo "#888888"
+fi

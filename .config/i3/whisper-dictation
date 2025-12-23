@@ -6,7 +6,7 @@ Atajos típicos en i3:
    bindsym $mod+Ctrl+c exec --no-startup-id ~/.config/i3/whisper-dictation stop
 """
 
-import os, sys, signal, subprocess, queue, re, numpy as np
+import os, sys, signal, subprocess, queue, re, logging, numpy as np
 from pathlib import Path
 import sounddevice as sd, webrtcvad
 from faster_whisper import WhisperModel
@@ -14,6 +14,14 @@ import torch
 
 # ───── Configuración rápida ────────────────────────────────────────────────────
 PIDFILE = Path.home() / ".cache/whisper-dictation.pid"
+LOGFILE = Path.home() / ".cache/whisper-dictation.log"
+STATUSFILE = Path.home() / ".cache/whisper-dictation.status"
+
+logging.basicConfig(
+    filename=LOGFILE,
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
 MODEL = "large-v3-turbo"  # WER 1.9%, 2.5GB VRAM, soporta español
 RATE = 16_000  # Hz
 VAD_MODE = 2  # 0–3 (3 = más agresivo)
@@ -44,6 +52,8 @@ def kill_running() -> None:
     if running():
         os.kill(int(PIDFILE.read_text()), signal.SIGTERM)
         PIDFILE.unlink(missing_ok=True)
+        STATUSFILE.unlink(missing_ok=True)
+        logging.info("Dictado detenido")
 
 
 def is_valid_transcription(text: str) -> bool:
@@ -73,12 +83,29 @@ def start(lang: str = LANG) -> None:
         return
 
     # ── Hijo: prepara modelo, VAD y audio ─────────────────────────────────────
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    compute_type = "int8_float16" if torch.cuda.is_available() else "int8"
+
+    # Logging de configuración
+    logging.info("=" * 50)
+    logging.info("Iniciando whisper-dictation")
+    logging.info(f"  Modelo: {MODEL}")
+    logging.info(f"  Dispositivo: {device}")
+    logging.info(f"  Compute type: {compute_type}")
+    logging.info(f"  Idioma: {lang}")
+    if device == "cuda":
+        props = torch.cuda.get_device_properties(0)
+        logging.info(f"  GPU: {props.name}")
+        logging.info(f"  VRAM total: {props.total_memory / 1e9:.1f}GB")
+    logging.info("=" * 50)
+
+    # Escribir archivo de estado para i3blocks
+    STATUSFILE.write_text(lang.upper())
+
     model = WhisperModel(
         MODEL,
-        device="cuda" if torch.cuda.is_available() else "cpu",
-        compute_type="int8_float16" if torch.cuda.is_available() else "int8",
-        # device="cpu",  # línea 46 aprox.
-        # compute_type="int8",  # keep memory low
+        device=device,
+        compute_type=compute_type,
     )
     vad = webrtcvad.Vad(VAD_MODE)
     q = queue.Queue()
@@ -141,6 +168,7 @@ def start(lang: str = LANG) -> None:
                     if text and is_valid_transcription(text):
                         text += " "
                         history += text
+                        logging.info(f"Transcripción: {text.strip()}")
                         subprocess.run(
                             ["xdotool", "type", "--delay", "0", "--clearmodifiers", text],
                             check=False,

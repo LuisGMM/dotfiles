@@ -1,0 +1,34 @@
+#!/bin/bash
+IFACE=$(iw dev 2>/dev/null | awk '$1=="Interface"{print $2}' | head -1)
+if [ -z "$IFACE" ]; then
+    IFACE=$(iwconfig 2>/dev/null | grep -o "^[^ ]*" | grep -v "^lo" | head -1)
+fi
+
+if [ -n "$IFACE" ]; then
+    INFO=$(iwconfig "$IFACE" 2>/dev/null)
+    SSID=$(echo "$INFO" | grep -oP 'ESSID:"\K[^"]+')
+    if [ -n "$SSID" ]; then
+        QUALITY=$(echo "$INFO" | grep -oP 'Link Quality=\K[0-9]+/[0-9]+' | awk -F'/' '{printf "%.0f", $1/$2*100}')
+        SPEED=$(echo "$INFO" | grep -oP 'Bit Rate[=:]\K[0-9.]+' | head -1)
+
+        if [ "$QUALITY" -ge 60 ]; then
+            COLOR="#00FF00"  # Verde
+        elif [ "$QUALITY" -ge 30 ]; then
+            COLOR="#FFFF00"  # Amarillo
+        else
+            COLOR="#FF0000"  # Rojo
+        fi
+
+        echo "W (${QUALITY}% at $SSID, ${SPEED} Mb/s)"
+        echo "W ${QUALITY}%"
+        echo "$COLOR"
+    else
+        echo "W down"
+        echo "W down"
+        echo "#FF0000"
+    fi
+else
+    echo "W N/A"
+    echo "W N/A"
+    echo "#888888"
+fi

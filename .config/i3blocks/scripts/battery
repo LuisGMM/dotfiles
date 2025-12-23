@@ -1,0 +1,38 @@
+#!/bin/bash
+BATTERY=$(acpi -b 2>/dev/null | head -1)
+AC_STATUS=$(acpi -a 2>/dev/null | grep -oP '(on|off)-line')
+
+if [ -n "$BATTERY" ]; then
+    PERCENT=$(echo "$BATTERY" | grep -oP '\d+%')
+    NUM=${PERCENT%\%}
+    STATUS=$(echo "$BATTERY" | grep -oP '(Charging|Discharging|Full|Not charging)')
+
+    # Detectar si está enchufado (AC on-line)
+    if [ "$AC_STATUS" = "on-line" ]; then
+        if [ "$STATUS" = "Full" ] || [ "$NUM" -ge 100 ]; then
+            ICON=" ✓"
+            COLOR="#00FF00"  # Verde - llena
+        else
+            ICON=" ⚡"
+            COLOR="#00FFFF"  # Cian - enchufado
+        fi
+    else
+        # Desenchufado
+        ICON=""
+        if [ "$NUM" -lt 20 ]; then
+            COLOR="#FF0000"  # Rojo
+        elif [ "$NUM" -lt 50 ]; then
+            COLOR="#FFFF00"  # Amarillo
+        else
+            COLOR="#00FF00"  # Verde
+        fi
+    fi
+
+    echo "BAT $PERCENT$ICON"
+    echo "BAT $PERCENT$ICON"
+    echo "$COLOR"
+else
+    echo "BAT N/A"
+    echo "BAT N/A"
+    echo "#888888"
+fi

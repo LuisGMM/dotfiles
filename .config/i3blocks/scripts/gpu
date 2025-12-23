@@ -1,0 +1,23 @@
+#!/bin/bash
+DATA=$(nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits 2>/dev/null)
+if [ -n "$DATA" ]; then
+    USED=$(echo "$DATA" | awk -F', ' '{print $1}')
+    TOTAL=$(echo "$DATA" | awk -F', ' '{print $2}')
+    PERCENT=$((USED * 100 / TOTAL))
+
+    if [ "$PERCENT" -ge 90 ]; then
+        COLOR="#FF0000"  # Rojo
+    elif [ "$PERCENT" -ge 70 ]; then
+        COLOR="#FFFF00"  # Amarillo
+    else
+        COLOR="#00FF00"  # Verde
+    fi
+
+    printf "GPU %.1fG/%.1fG\n" "$(echo "$USED/1024" | bc -l)" "$(echo "$TOTAL/1024" | bc -l)"
+    printf "GPU %.1fG/%.1fG\n" "$(echo "$USED/1024" | bc -l)" "$(echo "$TOTAL/1024" | bc -l)"
+    echo "$COLOR"
+else
+    echo "GPU N/A"
+    echo "GPU N/A"
+    echo "#888888"
+fi
