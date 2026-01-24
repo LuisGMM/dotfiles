@@ -1,3 +1,12 @@
+-- Silenciar warning de deprecación de lspconfig (hasta migrar a vim.lsp.config)
+local original_deprecate = vim.deprecate
+vim.deprecate = function(name, alternative, version, plugin, backtrace)
+	if plugin == 'nvim-lspconfig' then
+		return
+	end
+	return original_deprecate(name, alternative, version, plugin, backtrace)
+end
+
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -86,6 +95,7 @@ local servers = {
 	--   }
 	-- },
 	pyright = {},
+	-- pylyzer = {},
 	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = false },
@@ -101,6 +111,9 @@ local servers = {
 	-- selene = {},
 	-- stylua = {},
 	bashls = {},
+
+	ts_ls = {},
+	eslint = {},
 }
 
 -- Setup neovim lua configuration
@@ -118,17 +131,18 @@ local mason_lspconfig = require("mason-lspconfig")
 
 mason_lspconfig.setup({
 	ensure_installed = vim.tbl_keys(servers),
+	automatic_enable = false,
 })
 
-mason_lspconfig.setup_handlers({
-	function(server_name)
-		require("lspconfig")[server_name].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			settings = servers[server_name],
-		})
-	end,
-})
+-- Configurar cada servidor manualmente (nueva API de mason-lspconfig)
+local lspconfig = require('lspconfig')
+for server_name, server_settings in pairs(servers) do
+	lspconfig[server_name].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		settings = server_settings,
+	})
+end
 
 -- Configure flutter tools
 -- Because it is not directly supported by Mason, it needs to be directly configured
@@ -170,6 +184,13 @@ require("flutter-tools").setup({
 			-- consider to configure this when there is a possibility of multiple virtual text items in one line
 			-- see `priority` option in |:help nvim_buf_set_extmark| for more info
 			enabled = true, -- set to false to disable
+
+			dart = {
+				analysisExcludedFolders = {
+					-- point at your pub-cache
+					vim.fn.expand("~/.pub-cache"),
+				},
+			},
 		},
 
 		settings = {

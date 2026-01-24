@@ -17,8 +17,18 @@ require("telescope").setup({
 				["<C-d>"] = false,
 			},
 		},
+		file_ignore_patterns = {
+			-- other ignores…
+			"%.git/",
+			-- flutter stuff --
+			"%.pub%-cache/.*",
+			"ruit/android/app/.cxx/*",
+			-- django static files --
+			"/media/luis/exOS/GitHub/ruit_backend/ruit_back/static",
+			"ruit_back/static/.*",
+			"uv.lock",
+		},
 	},
-
 	-- To improve symbols searches results. https://github.com/nvim-telescope/telescope.nvim/issues/2104
 
 	pickers = {

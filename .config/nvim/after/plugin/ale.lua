@@ -17,6 +17,18 @@ vim.g.ale_linters = {
 		-- 'luacheck'
 		-- 'lua_language_server'
 	},
+	bash = {
+		"shellcheck",
+	},
+	html = {
+		"htmlhint",
+	},
+	javascript = {
+		"eslint",
+	},
+	typescript = {
+		"eslint",
+	},
 }
 
 vim.g.ale_fixers = {
@@ -57,9 +69,38 @@ vim.g.ale_fixers = {
 		"remove_trailing_lines",
 		"trim_whitespace",
 	},
+	bash = {
+		"remove_trailing_lines",
+		"trim_whitespace",
+		"shfmt",
+	},
+	html = {
+		"prettier",
+		"remove_trailing_lines",
+		"trim_whitespace",
+	},
+
+	json = {
+		"clang-format",
+		"remove_trailing_lines",
+		"trim_whitespace",
+	},
+	javascript = {
+		"prettier",
+		"remove_trailing_lines",
+		"trim_whitespace",
+	},
+	typescript = {
+		"prettier",
+		"remove_trailing_lines",
+		"trim_whitespace",
+	},
 }
 
 -- Ale config
+--
+vim.g.ale_dart_format_executable = "dart"
+vim.g.ale_dart_format_options = "--line-length 100"
 
 -- vim.g.ale_python_isort_options = "-l 100 --top false --use-parenthesis"
 vim.g.ale_sign_error = "E"

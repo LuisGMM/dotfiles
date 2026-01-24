@@ -97,17 +97,53 @@ require("packer").startup(function(use)
 	use("tpope/vim-rhubarb")
 	use("lewis6991/gitsigns.nvim")
 
+	use({
+		"FabijanZulj/blame.nvim",
+		lazy = false,
+		config = function()
+			require("blame").setup({})
+		end,
+	})
+
+	-- Git worktree management
+	use({
+		"polarmutex/git-worktree.nvim",
+		requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+	})
+
+	-- Diff viewer (used by neogit)
+	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+
+	-- Visual git interface (like magit)
+	use({
+		"NeogitOrg/neogit",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	})
+
 	use("navarasu/onedark.nvim") -- Theme inspired by Atom
 	use("nvim-lualine/lualine.nvim") -- Fancier statusline
 	use("lukas-reineke/indent-blankline.nvim") -- Add indentation guides even on blank lines
 	use("numToStr/Comment.nvim") -- "gc" to comment visual regions/lines
 	use("tpope/vim-sleuth") -- Detect tabstop and shiftwidth automatically
 
+	use({
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		requires = { "nvim-treesitter/nvim-treesitter" },
+	})
+
 	-- Harpoon. Navigation|terminal/file switching.
 	use("nvim-lua/plenary.nvim")
-	use("ThePrimeagen/harpoon")
-	use("mbbill/undotree")
 	use("ThePrimeagen/vim-be-good")
+	use("mbbill/undotree")
+	use({
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
 
 	-- DoGe. docstring generation
 	use({
@@ -163,7 +199,7 @@ require("packer").startup(function(use)
 	use("lervag/vimtex")
 
 	-- Debugger
-	use("mfussenegger/nvim-dap")
+	use({ "mfussenegger/nvim-dap", requires = { "nvim-neotest/nvim-nio" } })
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 	use("theHamsta/nvim-dap-virtual-text")
 	use("mfussenegger/nvim-dap-python")

@@ -1,10 +1,23 @@
 -- Enable Comment.nvim
-require("Comment").setup()
+--[[ require("Comment").setup({ ]]
+--[[ 	pre_hook = function(ctx) ]]
+--[[ 		local U = require("Comment.utils") ]]
+--[[]]
+--[[ 		-- Check filetype and apply logic for html comments ]]
+--[[ 		if vim.bo.filetype == "html" then ]]
+--[[ 			return "<!-- %s -->" ]]
+--[[ 		end ]]
+--[[]]
+--[[ 		-- Use ts_context_commentstring for other filetypes ]]
+--[[ 		return require("ts_context_commentstring.internal").calculate_commentstring({ ]]
+--[[ 			key = ctx.ctype == U.ctype.line and "__default" or "__multiline", ]]
+--[[ 		}) ]]
+--[[ 	end, ]]
+--[[ }) ]]
+--[[]]
+--[[ require("ts_context_commentstring").setup({}) ]]
+--[[ -- Optionally set this global variable to skip loading the deprecated module ]]
+--[[ vim.g.skip_ts_context_commentstring_module = true ]]
+--
 
--- Enable `lukas-reineke/indent-blankline.nvim`
--- See `:help indent_blankline.txt`
-require("ibl").setup({
-	indent = {
-		char = "┊",
-	},
-})
+require("Comment").setup()

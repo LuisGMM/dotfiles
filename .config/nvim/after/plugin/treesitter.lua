@@ -2,10 +2,25 @@
 -- See `:help nvim-treesitter`
 require("nvim-treesitter.configs").setup({
 	-- Add languages to be installed here that you want installed for treesitter
-	ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "typescript", "vimdoc", "vim" },
+	ensure_installed = {
+		"c",
+		"cpp",
+		"go",
+		"lua",
+		"python",
+		"rust",
+		"javascript",
+		"typescript",
+		"vimdoc",
+		"vim",
+		"yaml",
+		"json",
+		"html",
+		"css",
+	},
 
 	highlight = { enable = true },
-	indent = { enable = true, disable = { "python" } },
+	indent = { enable = true, disable = { "python", "dart" } },
 	incremental_selection = {
 		enable = true,
 		keymaps = {
@@ -16,6 +31,7 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 	textobjects = {
+		disable = { "dart" },
 		select = {
 			enable = true,
 			lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
