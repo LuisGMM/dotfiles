@@ -1,10 +1,10 @@
 -- Detectar si estamos en un worktree
 local function worktree_info()
 	local cwd = vim.fn.getcwd()
-	-- Buscar TID-XXX en el path del directorio actual
-	local task_id = cwd:match('/worktrees/(TID%-[^/]+)')
-	if task_id then
-		return '[' .. task_id .. ']'
+	-- Detectar cualquier worktree en /worktrees/
+	local worktree_name = cwd:match('/worktrees/([^/]+)')
+	if worktree_name then
+		return '[' .. worktree_name .. ']'
 	end
 	return ''
 end

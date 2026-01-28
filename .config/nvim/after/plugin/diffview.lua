@@ -19,7 +19,8 @@ diffview.setup({
 })
 
 -- Keymaps
-vim.keymap.set('n', '<Leader>gd', '<cmd>DiffviewOpen<CR>', { desc = 'Diffview: open diff' })
+vim.keymap.set('n', '<Leader>gd', '<cmd>DiffviewOpen HEAD<CR>', { desc = 'Diffview: staged + unstaged changes' })
 vim.keymap.set('n', '<Leader>gh', '<cmd>DiffviewFileHistory %<CR>', { desc = 'Diffview: file history' })
 vim.keymap.set('n', '<Leader>gH', '<cmd>DiffviewFileHistory<CR>', { desc = 'Diffview: branch history' })
 vim.keymap.set('n', '<Leader>gq', '<cmd>DiffviewClose<CR>', { desc = 'Diffview: close' })
+vim.keymap.set('n', '<Leader>gm', '<cmd>DiffviewOpen origin/main<CR>', { desc = 'Diffview: diff vs main' })

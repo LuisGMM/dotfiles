@@ -29,12 +29,9 @@ require("telescope").setup({
 			"uv.lock",
 		},
 	},
-	-- To improve symbols searches results. https://github.com/nvim-telescope/telescope.nvim/issues/2104
-
 	pickers = {
-		-- Manually set sorter, for some reason not picked up automatically
 		lsp_dynamic_workspace_symbols = {
-			sorter = require("telescope").extensions.fzf.native_fzf_sorter(fzf_opts),
+			debounce = 150,
 		},
 	},
 	extensions = {

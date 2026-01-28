@@ -94,7 +94,13 @@ local servers = {
 	--     }
 	--   }
 	-- },
-	pyright = {},
+	pyright = {
+		python = {
+			analysis = {
+				diagnosticMode = "workspace",
+			},
+		},
+	},
 	-- pylyzer = {},
 	lua_ls = {
 		Lua = {
